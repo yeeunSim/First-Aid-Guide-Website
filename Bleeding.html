@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hospital Information</title>
+  <script>
+    function toggleAudio() {
+        var audio = document.getElementById('myAudio');
+        if (audio.paused) {
+        audio.play();
+        } else {
+        audio.pause();
+        }
+    }
+  </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var stopwatchElement = $('#stopwatch');
+    var currentTimeElement = $('#current-time');
+    var startTime = Date.now();
+    var isAlertDisplayed = false;
+
+    function updateStopwatch() {
+      var currentTime = Date.now();
+      var elapsedTime = currentTime - startTime;
+      var seconds = Math.floor(elapsedTime / 1000) % 60;
+      var minutes = Math.floor(elapsedTime / 1000 / 60) % 60;
+      var hours = Math.floor(elapsedTime / 1000 / 60 / 60);
+      var stopwatchText = '골든 타임  ' + ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+      stopwatchElement.text(stopwatchText);
+
+      function showAlert() {
+        if (!isAlertDisplayed && minutes === 5) {
+          alert('가까운 병원에 신속히 방문하시길 바랍니다.');
+          isAlertDisplayed = true;
+        }
+      }
+
+      setInterval(showAlert, 1000);
+
+      var date = new Date();
+      var currentTimeText = '현재 시각  ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+      currentTimeElement.text(currentTimeText);
+    }
+
+    setInterval(updateStopwatch, 1000);
+  });
+</script>
+
+  <style>
+    @import url(Bleeding.css); 
+  </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <center>
+    <img src="media/video.png" alt="Map" style="position: fixed; top: 2px; left: 2px; width: 70px; height: 70px;"
+    onclick="window.location.href='https://www.youtube.com/watch?v=Jqj48mhziJM'">
+
+    <img src="media/icons8-스피커-96 (1).png" alt="Play" style="position: fixed; top: 2px; right: 2px; width: 70px; height: 70px;" onclick="toggleAudio()">
+    <audio id="myAudio" src="media/출혈-응급처치.mp3" autoplay></audio>
+
+    <div class="title-box"><b>출혈</b>
+    </div>
+    
+    <div class="flex-container">
+        <div class="container1">
+            <img src="media/Bleeding_1.png" width="280px" height="200px" alt="Hospital Image">
+            <div class="container2">상처를 직접 누르는 방법<br>
+                압박붕대나 손으로 출혈 부위를 직접 압박하는 방법이다.
+            </div>
+        </div>
+        <div class="container1">
+            <img src="media/Bleeding_2.png" width="280px" height="200px" alt="Hospital Image">
+            <div class="container2">핏줄 누르기<br>
+                직접 압박으로도 지혈되지 않을 때는 출혈 부위에서 몸통 방향으로 가까이 위치한 동맥 부위를 압박한다.
+            </div>
+        </div>
+        <div class="container1">
+            <img src="media/Bleeding_3.png" width="280px" height="200px" alt="Hospital Image">
+            <div class="container2">지혈대 이용법<br>
+                출혈 부위보다 근위(부)에 지혈대를 감아서 출혈을 멈추게 하는 방법이다.
+            </div>
+        </div>
+    </div>
+
+    <div id="stopwatch-time">
+        <h1 id="stopwatch">00:00:00</h1>
+    </div>
+
+
+<div id="current-time"></div>
+
+</center>
+</body>
+
+</html>

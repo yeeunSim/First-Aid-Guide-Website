@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>응급처치 방법 안내 사이트</title>
+  <style>
+    @import url(Main.css);
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var stopwatchElement = $('#stopwatch');
+      var currentTimeElement = $('#current-time');
+      var startTime = Date.now();
+      var isAlertDisplayed = false;
+
+      function updateStopwatch() {
+        var currentTime = Date.now();
+        var elapsedTime = currentTime - startTime;
+        var seconds = Math.floor(elapsedTime / 1000) % 60;
+        var minutes = Math.floor(elapsedTime / 1000 / 60) % 60;
+        var hours = Math.floor(elapsedTime / 1000 / 60 / 60);
+        var stopwatchText = '골든 타임  ' + ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+        stopwatchElement.text(stopwatchText);
+
+        function showAlert() {
+          if (!isAlertDisplayed && minutes === 5) {
+            alert('가까운 병원에 신속히 방문하시길 바랍니다.');
+            isAlertDisplayed = true;
+          }
+        }
+
+        setInterval(showAlert, 1000);
+
+        var date = new Date();
+        var currentTimeText = '현재 시각  ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+        currentTimeElement.text(currentTimeText);
+      }
+
+      setInterval(updateStopwatch, 1000);
+    });
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="stopwatch-box">
+      <h1 id="stopwatch">00:00:00</h1>
+    </div>
+    <div class="button-container">
+      <a href="CPR.html" class="button">심폐소생술</a>
+      <a href="Bee.html" class="button">벌에 쏘였을 때</a>
+      <a href="Bleeding.html" class="button">출혈</a>
+    </div>
+  </div>
+  <div id="current-time"></div>
+
+  <div id="container-box">
+    <center>
+      <h3>긴급 신고 전화</h3>
+      <p><span class="label">경찰청 :</span> 112</p>
+      <p><span class="label">119 안전신고센터 :</span> 119</p>
+      <p><span class="label">질병관리청 :</span> 1339</p>
+    </center>
+  </div>
+
+  <img src="media/hospital.png" alt="Map" style="position: fixed; top: 60px; right: 80px; width: 120px; height: 120px;"
+    onclick="window.location.href='Hospital.html'">
+
+  <center>
+    © 2023 simyeeun. All rights reserved.
+  </center>
+</body>
+
+</html>

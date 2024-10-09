@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hospital Information</title>
+  <script>
+    function toggleAudio() {
+      var audio = document.getElementById('myAudio');
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    var stopwatchElement = $('#stopwatch');
+    var currentTimeElement = $('#current-time');
+    var startTime = Date.now();
+    var isAlertDisplayed = false;
+
+    function updateStopwatch() {
+      var currentTime = Date.now();
+      var elapsedTime = currentTime - startTime;
+      var seconds = Math.floor(elapsedTime / 1000) % 60;
+      var minutes = Math.floor(elapsedTime / 1000 / 60) % 60;
+      var hours = Math.floor(elapsedTime / 1000 / 60 / 60);
+      var stopwatchText = '골든 타임  ' + ('0' + hours).slice(-2) + ':' + ('0' + minutes).slice(-2) + ':' + ('0' + seconds).slice(-2);
+      stopwatchElement.text(stopwatchText);
+
+      function showAlert() {
+        if (!isAlertDisplayed && minutes === 5) {
+          alert('가까운 병원에 신속히 방문하시길 바랍니다.');
+          isAlertDisplayed = true;
+        }
+      }
+
+      setInterval(showAlert, 1000);
+
+      var date = new Date();
+      var currentTimeText = '현재 시각  ' + ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2);
+      currentTimeElement.text(currentTimeText);
+    }
+
+    setInterval(updateStopwatch, 1000);
+  });
+</script>
+
+  <style>
+    @import url(CPR.css);
+  </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <center>
+    <img src="media/video.png" alt="Map" style="position: fixed; top: 2px; left: 2px; width: 70px; height: 70px;"
+    onclick="window.location.href='https://www.youtube.com/watch?v=pLvFWLCwn6M'">
+
+    <img src="media/icons8-스피커-96 (1).png" alt="Play" style="position: fixed; top: 2px; right: 2px; width: 70px; height: 70px;" onclick="toggleAudio()">
+    <audio id="myAudio" src="media/CPR-응급처치.mp3" autoplay></audio>
+
+
+    <div class="title-box"><b>심폐소생술</b>
+    </div>
+    
+    <div class="flex-container">
+        <div class="container1">
+            <img src="media/CPR_1.png" width="250px" height="250px" alt="Hospital Image">
+            <div class="container2">1. 심정지 및 무호흡 확인<br>
+                양어깨를 두드리며 말을 걸고 눈과 귀로 심정지 및 무호흡 유무를 확인한다.
+                (반응과 호흡이 있으면 심정지 아님)
+            </div>
+        </div>
+        <div class="container1">
+            <img src="media/CPR_2.png" width="250px" height="250px" alt="Hospital Image">
+            <div class="container2">2. 도움 및 119신고 요청<br>
+                주변사람에게(꼭 집어서) 119신고를 부탁하고 자동심장충격기를 요청한다.
+            </div>
+        </div>
+        <div class="container1">
+            <img src="media/CPR_3.png" width="250px" height="250px" alt="Hospital Image">
+            <div class="container2">3. 가슴압박 30회 시행<br>
+                환자의 가슴 중앙에 깍지낀 두손으로 몸과 수직이 되도록 압박한다.
+                압박은 성인기준 5cm 이상 1분에 100 ~ 120회 이상의 속도로 압박한다.
+            </div>
+        </div>
+        <div class="container1">
+            <img src="media/CPR_4.png" width="250px" height="250px" alt="Hospital Image">
+            <div class="container2">4. 인공호흡 2회 시행<br>
+                코를 막고 구조자의 입을 완전히 밀착하여 정상호흡을 약 1초에 걸쳐 2회 숨을 불어 넣는다.
+                (인공호흡이 어려울 경우 가슴압박을 지속적으로 시행)
+            </div>
+        </div>
+        <div class="container1">
+            <img src="media/CPR_5.png" width="250px" height="250px" alt="Hospital Image">
+            <div class="container2">5. 가슴압박, 인공호흡 반복<br>
+                이후에는 30회의 가슴압박과 2회의 인공호흡을 119구급대원이 현장에 도착할 때까지 반복해서 시행한다.
+            </div>
+        </div>
+    </div>
+
+        <div id="stopwatch-time">
+            <h1 id="stopwatch">00:00:00</h1>
+        </div>
+
+    <div id="current-time"></div>
+    
+</center>
+</body>
+
+</html>
